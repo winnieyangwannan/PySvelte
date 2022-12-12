@@ -8,6 +8,8 @@
     export let hues;
     export let focus_token;
     export let isolate_channel = undefined;
+    export let hover_token_is_target = false;
+
     export let color_map = sparse_color_map;
     let canvas;
 
@@ -45,6 +47,7 @@
     $: draw(canvas, array, isolate_channel, hues);
 </script>
 
+{#if !hover_token_is_target}
 <div class="container" style="width: {width}px; height: {height}px">
     <canvas bind:this={canvas} style="width: {width}px; height: {height}px" />
     {#if focus_token != undefined}
@@ -59,6 +62,24 @@
         />
     {/if}
 </div>
+{/if}
+
+{#if hover_token_is_target}
+<div class="container" style="width: {width}px; height: {height}px">
+    <canvas bind:this={canvas} style="width: {width}px; height: {height}px" />
+    {#if focus_token != undefined}
+        <div
+            class="focus-left"
+            style="width: {(width * focus_token) / array.shape[1]}px"
+        />
+        <div
+            class="focus-right"
+            style="width: {width *
+                (1 - (focus_token + 1) / array.shape[1])}px"
+        />
+    {/if}
+</div>
+{/if}
 
 <style>
     .container {
@@ -67,16 +88,18 @@
     }
     .container > * {
         position: absolute;
-        width: 100%;
-        left: 0px;
     }
     .container canvas {
+        left: 0px;
         top: 0px;
+        width: 100%;
         height: 100%;
         image-rendering: pixelated;
     }
     .container .focus-top,
     .container .focus-bottom {
+        left: 0px;
+        width: 100%;
         background: #aaa;
         opacity: 0.3;
     }
@@ -85,5 +108,18 @@
     }
     .container .focus-bottom {
         bottom: 0px;
+    }
+    .container .focus-left,
+    .container .focus-right {
+        top: 0px;
+        height: 100%;
+        background: #aaa;
+        opacity: 0.3;
+    }
+    .container .focus-left {
+        left: 0px;
+    }
+    .container .focus-right {
+        right: 0px;
     }
 </style>

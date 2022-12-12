@@ -166,6 +166,7 @@
                 width="200"
                 height="200"
                 {focus_token}
+                hover_token_is_target={hover_token_is_target}
                 isolate_channel={focus_head}
                 />
         </div>
@@ -176,6 +177,7 @@
             width="200"
             height="200"
             {focus_token}
+            hover_token_is_target={hover_token_is_target}
             isolate_channel={focus_head}
         />
     </div>
