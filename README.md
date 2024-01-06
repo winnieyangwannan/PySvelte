@@ -19,10 +19,10 @@ will yield this interactive widget:
 ## Installation
 
 ```bash
-pip install git+https://github.com/neelnanda-io/PySvelte
+pip install git+https://github.com/austinleedavis/PySvelte-fixColabSetup
 ```
 
-(Or for developing PySvelte, you can `git clone git@github.com:neelnanda-io/PySvelte.git`, `cd PySvelte`, `pip install -e . -U`. This will use your local development version when you `import pysvelte`.)
+(Or for developing PySvelte, you can `git clone git@github.com:austinleedavis/PySvelte-fixColabSetup.git`, `cd PySvelte`, `pip install -e . -U`. This will use your local development version when you `import pysvelte`.)
 
 ## Colab
 
