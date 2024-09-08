@@ -1,3 +1,4 @@
+
 import json
 import runpy
 from inspect import Parameter, Signature, signature
@@ -11,7 +12,7 @@ from .ExtJsonEncoder import ExtJSONEncoder
 from .html import Html
 from .javascript import get_dist_path, get_src_path
 from .vis_paths import PYSVELTE_ROOT
-
+import pathlib
 __all__ = ["SvelteComponent"]
 
 
@@ -169,10 +170,16 @@ class SvelteComponent:
     @staticmethod
     def autogenerate() -> List["SvelteComponent"]:
         components = []
+
+
         for f in PYSVELTE_ROOT.glob("src/*/main.svelte"):
             name = str(f).split("/src/")[1].replace("/main.svelte", "")
             components.append(SvelteComponent(name))
         for f in PYSVELTE_ROOT.glob("src/*.svelte"):
-            name = str(f).split("/src/")[1].replace(".svelte", "")
+            # winnie edited to be compatible with Windows path 2024-09-08
+            if type(f) == pathlib.WindowsPath:
+                name = str(f).split('\\src\\')[1].replace(".svelte", "")
+            else:
+                name = str(f).split("/src/")[1].replace(".svelte", "")
             components.append(SvelteComponent(name))
         return components
